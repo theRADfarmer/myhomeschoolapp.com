@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     # Local apps
     'accounts',
     'students',
+    'subjects',
+    'assignments',
 ]
 
 REST_FRAMEWORK = {
