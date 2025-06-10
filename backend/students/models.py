@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 
 class Student(models.Model):
-    clerk_user_id = models.CharField(max_length=255)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='students')
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
     birth_date = models.DateField()

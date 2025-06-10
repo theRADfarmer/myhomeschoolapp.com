@@ -1,5 +1,5 @@
 ---
-import { SignedIn, SignedOut, UserButton, SignInButton } from '@clerk/astro/components';
+
 ---
 
 <html lang="en">
@@ -11,57 +11,6 @@ import { SignedIn, SignedOut, UserButton, SignInButton } from '@clerk/astro/comp
 		<title>Astro</title>
 	</head>
 	<body>
-		<header>
-			<h1>Astro</h1>
-			<nav>
-				<SignedOut>
-					<SignInButton mode="modal" />
-				</SignedOut>
-				<SignedIn>
-					<UserButton />
-				</SignedIn>
-			</nav>
-		</header>
-		<main>
-			<SignedIn>
-				<button id="test-api-btn">Test Backend Auth</button>
-				<pre id="api-response"></pre>
-				<script>
-					window.addEventListener('DOMContentLoaded', () => {
-						const btn = document.getElementById('test-api-btn');
-						const output = document.getElementById('api-response');
-						if (!btn || !output) return;
-						btn.onclick = async () => {
-							output.textContent = 'Loading...';
-							try {
-								// Wait for Clerk to be ready
-								if (!window.Clerk) {
-									output.textContent = 'Clerk not loaded.';
-									return;
-								}
-								await window.Clerk.load();
-								const session = window.Clerk.session;
-								if (!session) {
-									output.textContent = 'No active session. Are you signed in?';
-									return;
-								}
-								const token = await session.getToken({ template: 'django' });
-								if (!token) {
-									output.textContent = 'No token found. Are you signed in?';
-									return;
-								}
-								const res = await fetch('http://localhost:8000/api/students', {
-									headers: { 'Authorization': `Bearer ${token}` }
-								});
-								const text = await res.text();
-								output.textContent = text;
-							} catch (e) {
-								output.textContent = 'Error: ' + e;
-							}
-						};
-					});
-				</script>
-			</SignedIn>
-		</main>
+		<h1>Astro</h1>
 	</body>
 </html>
