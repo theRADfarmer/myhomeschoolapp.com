@@ -9,6 +9,9 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/node": "^9.2.2",
+    "@clerk/astro": "^2.9.0",
+    "@clerk/clerk-js": "^5.68.0",
     "astro": "^5.9.1"
   }
 }
