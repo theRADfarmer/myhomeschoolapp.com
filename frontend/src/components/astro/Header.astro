@@ -1,0 +1,19 @@
+---
+import { SignedIn, SignedOut, UserButton, SignInButton } from '@clerk/astro/components';
+---
+
+<header>
+  <nav class="flex justify-between items-center border-b border-dark-neutral dark:border-light-neutral">
+    <div class="ml-2 my-4">
+      <p><a class="font-bold text-xl text-dark-neutral dark:text-light-neutral" href="/">MyHomeschoolApp.com</a></p>
+    </div>
+    <div class="p-2">
+      <SignedOut>
+          <SignInButton mode="modal" />
+      </SignedOut>
+      <SignedIn>
+          <UserButton />
+      </SignedIn>
+    </div>
+  </nav>
+</header>

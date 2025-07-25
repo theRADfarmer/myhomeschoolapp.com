@@ -1,0 +1,67 @@
+---
+import BaseLayout from "../../../../layouts/BaseLayout.astro";
+import AssignmentTable from "../../../../../components/react/AssignmentTable";
+
+const { params } = Astro;
+const { userId, getToken } = Astro.locals.auth()
+
+const user = await Astro.locals.currentUser()
+
+if (!user || !userId)
+{
+    return Astro.redirect('/')
+}
+
+const subjectId = params.subjectId;
+const studentId = params.studentId;
+
+const token = await getToken({ template: 'django' });
+
+let student = null;
+let subject = null;
+let error = null;
+try {
+  const res = await fetch(`http://127.0.0.1:8000/api/students/${studentId}`, {
+    headers: {
+      "Authorization": `Bearer ${token}`,
+    }
+  });
+  if (!res.ok) throw new Error(`Failed to fetch student: ${res.status}`);
+  student = await res.json();
+} catch (err) {
+  error = err;
+}
+try {
+  const res = await fetch(`http://127.0.0.1:8000/api/subjects/${subjectId}`, {
+    headers: {
+      "Authorization": `Bearer ${token}`,
+    }
+  });
+  if (!res.ok) throw new Error(`Failed to fetch subject: ${res.status}`);
+  subject = await res.json();
+} catch (err) {
+  error = err;
+}
+
+const pageTitle = `${student.first_name} ${student.last_name}'s ${subject.name} Assignments`
+---
+
+<BaseLayout pageTitle={pageTitle}>
+  <div class="mb-2">
+    <h1>{pageTitle}</h1>
+    <hr />
+    <h2 class="mt-4">Subject Details:</h2>
+    <ul>
+      <li><span class="font-bold">Course Description: </span>{subject.course_description ? subject.course_description : "No data"}</li>
+      <li><span class="font-bold">Notes: </span>{subject.notes ? subject.notes : "No data"}</li>
+    </ul>
+
+    <p class="mt-2"><a href=`/students/${studentId}/subjects`>Back to {student.first_name}'s subject view.</a></p>
+  </div>
+
+  <AssignmentTable
+    client:load
+    studentId={studentId}
+    subjectId={subjectId} 
+  />
+</BaseLayout>

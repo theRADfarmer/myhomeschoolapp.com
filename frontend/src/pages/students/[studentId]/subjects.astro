@@ -1,0 +1,47 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import SubjectTable from "../../../components/react/SubjectTable";
+
+const { params} = Astro;
+const { userId, getToken } = Astro.locals.auth();
+
+const user = await Astro.locals.currentUser()
+
+if (!user || !userId)
+{
+    return Astro.redirect('/')
+}
+
+const studentId = params.studentId;
+
+const token = await getToken({ template: 'django' });
+
+// Fetch student info from the API
+let student = null;
+let error = null;
+try {
+  const res = await fetch(`http://127.0.0.1:8000/api/students/${studentId}`, {
+    headers: {
+      "Authorization": `Bearer ${token}`,
+    }
+  });
+  if (!res.ok) throw new Error(`Failed to fetch student: ${res.status}`);
+  student = await res.json();
+} catch (err) {
+  error = err;
+}
+
+const pageTitle = `${student.first_name} ${student.last_name}'s Subjects`;
+---
+
+<BaseLayout pageTitle={pageTitle}>
+  <div class="mb-2">
+    <h1>{pageTitle}</h1>
+    <p class="mt-2"><a href="/students">Back to student view</a></p>
+  </div>
+
+  <SubjectTable
+    client:load
+    studentId={studentId} 
+  />
+</BaseLayout>

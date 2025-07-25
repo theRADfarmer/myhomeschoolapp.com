@@ -1,0 +1,20 @@
+---
+import BaseLayout from "./layouts/BaseLayout.astro";
+import { SignInButton } from "@clerk/astro/components";
+
+const { userId } = Astro.locals.auth()
+
+const user = await Astro.locals.currentUser()
+
+if (user || userId)
+{
+    return Astro.redirect('/home')
+}
+
+const pageTitle="MyHomeschoolApp.com"
+---
+
+<BaseLayout pageTitle={pageTitle}>
+	<h1>Welcome to MyHomeschoolApp!</h1>
+	<p>Please <SignInButton class="text-secondary hover:text-primary" /> to continue</p>
+</BaseLayout>

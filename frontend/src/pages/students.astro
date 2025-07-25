@@ -1,0 +1,20 @@
+---
+import BaseLayout from './layouts/BaseLayout.astro';
+import StudentTable from '../components/react/StudentTable';
+
+const { userId } = Astro.locals.auth()
+
+const user = await Astro.locals.currentUser()
+
+if (!user || !userId)
+{
+    return Astro.redirect('/')
+}
+
+const pageTitle = `${user.firstName ? user.firstName : user.username}'s Students`
+---
+<BaseLayout pageTitle={pageTitle}>
+    <h1 class="fmb-4">{pageTitle}</h1>
+
+    <StudentTable client:load />
+</BaseLayout>
