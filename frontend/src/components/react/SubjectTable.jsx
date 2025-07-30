@@ -5,6 +5,8 @@ import EditableCell from "./EditableCell";
 import AddSubject from './AddSubject';
 import InlineEditingInput from './InlineEditingInput';
 
+const VITE_API_URL = import.meta.env.PUBLIC_VITE_API_URL;
+
 const { useState, useEffect } = React;
 
 const SubjectTable = ({ studentId }) => {
@@ -24,7 +26,7 @@ const SubjectTable = ({ studentId }) => {
     try {
       const token = await getToken({ template: "django" });
       const resp = await fetch(
-        `http://127.0.0.1:8000/api/subjects/${id}`,
+        `${VITE_API_URL}/subjects/${id}`,
         {
           method: "PATCH",
           headers: {
@@ -65,7 +67,7 @@ const SubjectTable = ({ studentId }) => {
     try {
       const token = await getToken({ template: "django" });
       const resp = await fetch(
-          `http://127.0.0.1:8000/api/subjects/${id}`,
+          `${VITE_API_URL}/subjects/${id}`,
           {
             method: "DELETE",
             headers: {
@@ -101,7 +103,7 @@ const SubjectTable = ({ studentId }) => {
       try {
         const token = await getToken({ template: "django" });
         const resp = await fetch(
-          `http://127.0.0.1:8000/api/subjects/?student=${studentId}`,
+          `${VITE_API_URL}/subjects/?student=${studentId}`,
           {
             headers: {
               "Authorization": `Bearer ${token}`,

@@ -4,6 +4,7 @@ import SubjectTable from "../../../components/react/SubjectTable";
 
 const { params} = Astro;
 const { userId, getToken } = Astro.locals.auth();
+const VITE_API_URL = import.meta.env.PUBLIC_VITE_API_URL
 
 const user = await Astro.locals.currentUser()
 
@@ -20,7 +21,7 @@ const token = await getToken({ template: 'django' });
 let student = null;
 let error = null;
 try {
-  const res = await fetch(`http://127.0.0.1:8000/api/students/${studentId}`, {
+  const res = await fetch(`${VITE_API_URL}/students/${studentId}`, {
     headers: {
       "Authorization": `Bearer ${token}`,
     }

@@ -1,5 +1,8 @@
 import React from "react";
 import { useAuth } from "@clerk/astro/react";
+
+const VITE_API_URL = import.meta.env.PUBLIC_VITE_API_URL;
+
 const { useState } = React;
 
 const AddSubject = ({ studentId, onSubjectAdded }) => {
@@ -19,7 +22,7 @@ const AddSubject = ({ studentId, onSubjectAdded }) => {
     
         try {
             const token = await getToken({ template: "django" });
-            const response = await fetch(`http://127.0.0.1:8000/api/subjects/`, {
+            const response = await fetch(`${VITE_API_URL}/subjects/`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

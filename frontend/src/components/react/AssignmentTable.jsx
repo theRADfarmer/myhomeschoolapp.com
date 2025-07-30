@@ -6,6 +6,8 @@ import EditableCell from "./EditableCell";
 import InlineEditingInput from './InlineEditingInput';
 import AddAssignment from './AddAssignment';
 
+const VITE_API_URL = import.meta.env.PUBLIC_VITE_API_URL;
+
 const { useState, useEffect } = React;
 
 const AssignmentTable = ({ studentId, subjectId }) => {
@@ -25,7 +27,7 @@ const AssignmentTable = ({ studentId, subjectId }) => {
     try {
       const token = await getToken({ template: "django" });
       const resp = await fetch(
-        `http://127.0.0.1:8000/api/assignments/${id}`,
+        `${VITE_API_URL}/assignments/${id}`,
         {
           method: "PATCH",
           headers: {
@@ -66,7 +68,7 @@ const AssignmentTable = ({ studentId, subjectId }) => {
     try {
       const token = await getToken({ template: "django" });
       const resp = await fetch(
-          `http://127.0.0.1:8000/api/assignments/${id}`,
+          `${VITE_API_URL}/assignments/${id}`,
           {
             method: "DELETE",
             headers: {
@@ -102,7 +104,7 @@ const AssignmentTable = ({ studentId, subjectId }) => {
       try {
         const token = await getToken({ template: "django" });
         const resp = await fetch(
-          `http://127.0.0.1:8000/api/assignments/?subject=${subjectId}`,
+          `${VITE_API_URL}/assignments/?subject=${subjectId}`,
           {
             headers: {
               "Authorization": `Bearer ${token}`,
