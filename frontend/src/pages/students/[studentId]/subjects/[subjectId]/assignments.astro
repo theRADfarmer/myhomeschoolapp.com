@@ -5,6 +5,8 @@ import AssignmentTable from "../../../../../components/react/AssignmentTable";
 const { params } = Astro;
 const { userId, getToken } = Astro.locals.auth()
 
+const VITE_API_URL = import.meta.env.PUBLIC_VITE_API_URL
+
 const user = await Astro.locals.currentUser()
 
 if (!user || !userId)
@@ -21,7 +23,7 @@ let student = null;
 let subject = null;
 let error = null;
 try {
-  const res = await fetch(`http://127.0.0.1:8000/api/students/${studentId}`, {
+  const res = await fetch(`${VITE_API_URL}/students/${studentId}`, {
     headers: {
       "Authorization": `Bearer ${token}`,
     }
@@ -32,7 +34,7 @@ try {
   error = err;
 }
 try {
-  const res = await fetch(`http://127.0.0.1:8000/api/subjects/${subjectId}`, {
+  const res = await fetch(`${VITE_API_URL}/subjects/${subjectId}`, {
     headers: {
       "Authorization": `Bearer ${token}`,
     }

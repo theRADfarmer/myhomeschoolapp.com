@@ -6,6 +6,8 @@ import AddStudent from "./AddStudent";
 import EditableCell from "./EditableCell";
 import InlineEditingInput from "./InlineEditingInput";
 
+const VITE_API_URL = import.meta.env.PUBLIC_VITE_API_URL;
+
 const { useState, useEffect } = React;
 
 const StudentTable = () => {
@@ -25,7 +27,7 @@ const StudentTable = () => {
     try {
       const token = await getToken({ template: "django" });
       const resp = await fetch(
-        `http://127.0.0.1:8000/api/students/${id}`,
+        `${VITE_API_URL}/students/${id}`,
         {
           method: "PATCH",
           headers: {
@@ -66,7 +68,7 @@ const StudentTable = () => {
     try {
       const token = await getToken({ template: "django" });
       const resp = await fetch(
-          `http://127.0.0.1:8000/api/students/${id}`,
+          `${VITE_API_URL}/students/${id}`,
           {
             method: "DELETE",
             headers: {
@@ -102,7 +104,7 @@ const StudentTable = () => {
       try {
         const token = await getToken({ template: "django" });
         const resp = await fetch(
-          "http://127.0.0.1:8000/api/students/",
+          `${VITE_API_URL}/students/`,
           {
             headers: {
               "Authorization": `Bearer ${token}`,
