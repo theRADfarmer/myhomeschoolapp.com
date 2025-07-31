@@ -138,6 +138,15 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Fixing CSRF issues
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+CSRF_TRUSTED_ORIGINS = [
+    BACKEND_URL,
+]
+
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
