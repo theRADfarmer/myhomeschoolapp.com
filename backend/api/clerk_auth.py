@@ -5,7 +5,7 @@ from django.conf import settings
 
 CLERK_JWKS_URL = settings.CLERK_JWKS_URL
 CLERK_AUDIENCE = settings.CLERK_AUDIENCE
-CLERK_ISSUER = settings.CLERK_ISSUER  # e.g., "https://clerk.myhomeschoolapp.com"
+CLERK_ISSUER = settings.CLERK_ISSUER
 
 class ClerkUser:
     def __init__(self, clerk_user_id):

@@ -26,6 +26,7 @@ CLERK_JWKS_URL = config('CLERK_JWKS_URL')
 CLERK_AUDIENCE = config('CLERK_AUDIENCE')
 FRONTEND_URL = config('FRONTEND_URL')
 BACKEND_URL = config('BACKEND_URL')
+CLERK_ISSUER = config('CLERK_ISSUER')
 
 os.environ.setdefault("PGDATABASE", "myhomeschoolapp_dev")
 os.environ.setdefault("PGUSER", "postgres")
